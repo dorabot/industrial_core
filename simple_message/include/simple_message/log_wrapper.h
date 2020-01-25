@@ -32,12 +32,18 @@
 #ifndef LOG_WRAPPER_H_
 #define LOG_WRAPPER_H_
 
+#define STDIOLOG
+
 #ifdef ROS
-#include "ros/ros.h"
+#include "rclcpp/rclcpp.hpp"
 #endif
 
 #ifdef MOTOPLUS
 #include "motoPlus.h"
+#endif
+
+#ifdef STDIOLOG
+#include <cstdio>
 #endif
 
 namespace industrial
