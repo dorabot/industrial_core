@@ -1,31 +1,55 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.5)
 
 project(industrial_msgs)
 
-find_package(catkin REQUIRED COMPONENTS std_msgs trajectory_msgs message_generation)
+# Default to C11
+if(NOT CMAKE_C_STANDARD)
+  set(CMAKE_C_STANDARD 11)
+endif()
 
-add_message_files(
-  FILES
-  DebugLevel.msg
-  DeviceInfo.msg
-  RobotMode.msg
-  RobotStatus.msg
-  ServiceReturnCode.msg
-  TriState.msg)
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
 
-add_service_files(
-  FILES
-  CmdJointTrajectory.srv
-  GetRobotInfo.srv
-  SetDrivePower.srv
-  SetRemoteLoggerLevel.srv
-  StartMotion.srv
-  StopMotion.srv)
+find_package(ament_cmake REQUIRED)
+find_package(builtin_interfaces REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(trajectory_msgs REQUIRED)
 
-generate_messages(
-  DEPENDENCIES trajectory_msgs std_msgs
+set(msg_files
+  "msg/DebugLevel.msg"
+  "msg/DeviceInfo.msg"
+  "msg/RobotMode.msg"
+  "msg/RobotStatus.msg"
+  "msg/ServiceReturnCode.msg"
+  "msg/TriState.msg"
 )
 
-catkin_package(
-    CATKIN_DEPENDS message_runtime std_msgs trajectory_msgs
+set(srv_files
+  "srv/CmdJointTrajectory.srv"
+  "srv/GetRobotInfo.srv"
+  "srv/SetDrivePower.srv"
+  "srv/SetRemoteLoggerLevel.srv"
+  "srv/StartMotion.srv"
+  "srv/StopMotion.srv"
 )
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  ament_lint_auto_find_test_dependencies()
+endif()
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  ${msg_files}
+  ${srv_files}
+  DEPENDENCIES builtin_interfaces std_msgs trajectory_msgs
+  ADD_LINTER_TESTS
+)
+
+ament_export_dependencies(rosidl_default_runtime)
+ament_package()
