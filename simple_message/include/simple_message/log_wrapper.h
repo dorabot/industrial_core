@@ -32,6 +32,8 @@
 #ifndef LOG_WRAPPER_H_
 #define LOG_WRAPPER_H_
 
+#define STDIOLOG
+
 #ifdef ROS
 #include "rclcpp/rclcpp.hpp"
 #endif
@@ -57,7 +59,33 @@ namespace industrial
 namespace log_wrapper
 {
     
-#ifdef STDIOLOG
+
+// Define ROS if this library will execute under ROS
+// #ifdef ROS
+#if 0
+
+// The LOG_COMM redirects to debug in ROS because ROS has
+// debug filtering tools that allow the communications messages
+// to be easily removed from the logs
+#define LOG_COMM(format, ...)  \
+  ROS_DEBUG(format, ##__VA_ARGS__)
+  
+#define LOG_DEBUG(format, ...)  \
+  ROS_DEBUG(format, ##__VA_ARGS__)
+
+#define LOG_INFO(format, ...)  \
+  ROS_INFO(format, ##__VA_ARGS__)
+
+#define LOG_WARN(format, ...)  \
+  ROS_WARN(format, ##__VA_ARGS__)
+
+#define LOG_ERROR(format, ...)  \
+  ROS_ERROR(format, ##__VA_ARGS__)
+
+#define LOG_FATAL(format, ...)  \
+  ROS_FATAL(FATAL, ##__VA_ARGS__)
+
+#elif defined(STDIOLOG)
 
 #define LOG(level, format, ...) \
 do \
@@ -76,30 +104,6 @@ do \
 #define LOG_WARN(format, ...)  LOG("WARNING", format, ##__VA_ARGS__)
 #define LOG_ERROR(format, ...) LOG("ERROR", format, ##__VA_ARGS__)
 #define LOG_FATAL(format, ...) LOG("FATAL", format, ##__VA_ARGS__)
-
-// Define ROS if this library will execute under ROS
-#elif defined(ROS)
-
-// The LOG_COMM redirects to debug in ROS because ROS has
-// debug filtering tools that allow the communications messages
-// to be easily removed from the logs
-#define LOG_COMM(format, ...)  \
-  RCLCPP_DEBUG(rclcpp::get_logger("simple_message"), format, ##__VA_ARGS__)
-  
-#define LOG_DEBUG(format, ...)  \
-  RCLCPP_DEBUG(rclcpp::get_logger("simple_message"), format, ##__VA_ARGS__)
-
-#define LOG_INFO(format, ...)  \
-  RCLCPP_INFO(rclcpp::get_logger("simple_message"), format, ##__VA_ARGS__)
-
-#define LOG_WARN(format, ...)  \
-  RCLCPP_WARN(rclcpp::get_logger("simple_message"), format, ##__VA_ARGS__)
-
-#define LOG_ERROR(format, ...)  \
-  RCLCPP_ERROR(rclcpp::get_logger("simple_message"), format, ##__VA_ARGS__)
-
-#define LOG_FATAL(format, ...)  \
-  RCLCPP_FATAL(rclcpp::get_logger("simple_message"), FATAL, ##__VA_ARGS__)
 
 #else
 // LOG DISABLED
