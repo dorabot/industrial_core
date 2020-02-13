@@ -32,6 +32,8 @@
 #ifndef MESSAGE_HANDLER_H
 #define MESSAGE_HANDLER_H
 
+#include "config.h"
+
 #ifndef FLATHEADERS
 #include "simple_message/simple_message.h"
 #include "simple_message/smpl_msg_connection.h"
@@ -83,18 +85,17 @@ public:
    *
    * \return true on success, false otherwise
    */
-  bool callback(industrial::simple_message::SimpleMessage & in);
+  bool callback(const industrial::simple_message::SimpleMessage& in);
 
   /**
    * \brief Gets message type that callback expects
    *
    * \return message type
    */
-  int getMsgType()
+  int getMsgType() const
   {
     return this->msg_type_;
   }
-  ;
 
 protected:
   /**
@@ -106,7 +107,6 @@ protected:
   {
     return this->connection_;
   }
-  ;
 
   /**
    * \brief Class initializer
@@ -137,7 +137,7 @@ private:
    *
    * \return true on success, false otherwise
    */
-  virtual bool internalCB(industrial::simple_message::SimpleMessage & in)=0;
+  virtual bool internalCB(const industrial::simple_message::SimpleMessage& in) = 0;
 
   /**
    * \brief Validates incoming message for processing by internal callback
@@ -146,7 +146,7 @@ private:
    *
    * \return true on if valid, false otherwise
    */
-  bool validateMsg(industrial::simple_message::SimpleMessage & in);
+  bool validateMsg(const industrial::simple_message::SimpleMessage& in) const;
 
   /**
    * \brief Sets connection for message replies
@@ -157,7 +157,6 @@ private:
   {
     this->connection_ = connection;
   }
-  ;
 
   /**
    * \brief Sets message type that callback expects
@@ -168,7 +167,6 @@ private:
   {
     this->msg_type_ = msg_type;
   }
-  ;
 
 };
 

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -125,7 +125,7 @@ bool SmplMsgConnection::receiveMsg(SimpleMessage & message)
 
 
 bool SmplMsgConnection::sendAndReceiveMsg(SimpleMessage & send, SimpleMessage & recv, bool verbose)
-{	
+{
   bool rtn = false;
   rtn = this->sendMsg(send);
   if (rtn)

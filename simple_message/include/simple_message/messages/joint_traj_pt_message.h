@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -31,6 +31,8 @@
 
 #ifndef JOINT_TRAJ_PT_MESSAGE_H
 #define JOINT_TRAJ_PT_MESSAGE_H
+
+#include "config.h"
 
 #ifndef FLATHEADERS
 #include "simple_message/typed_message.h"
@@ -85,7 +87,7 @@ public:
    *
    * \return true if message successfully initialized, otherwise false
    */
-  bool init(industrial::simple_message::SimpleMessage & msg);
+  bool init(const industrial::simple_message::SimpleMessage& msg);
 
   /**
    * \brief Initializes message from a joint trajectory point structure
@@ -93,7 +95,7 @@ public:
    * \param joint trajectory point data structure
    *
    */
-  void init(industrial::joint_traj_pt::JointTrajPt & point);
+  void init(const industrial::joint_traj_pt::JointTrajPt& point);
 
   /**
    * \brief Initializes a new message
@@ -102,10 +104,10 @@ public:
   void init();
 
   // Overrides - SimpleSerialize
-  bool load(industrial::byte_array::ByteArray *buffer);
+  bool load(industrial::byte_array::ByteArray *buffer) const;
   bool unload(industrial::byte_array::ByteArray *buffer);
 
-  unsigned int byteLength()
+  unsigned int byteLength() const
   {
     return this->point_.byteLength();
   }
@@ -118,9 +120,6 @@ public:
   void setSequence(industrial::shared_types::shared_int sequence) { point_.setSequence(sequence); }
 
   industrial::joint_traj_pt::JointTrajPt point_;
-
-private:
-
 
 };
 

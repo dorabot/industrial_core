@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Yaskawa America, Inc.
@@ -166,4 +166,3 @@ bool UdpServer::makeConnect()
 
 } //udp_server
 } //industrial
-

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -31,6 +31,8 @@
 
 #ifndef JOINT_DATA_H
 #define JOINT_DATA_H
+
+#include "config.h"
 
 #ifndef FLATHEADERS
 #include "simple_message/simple_message.h"
@@ -122,7 +124,7 @@ public:
    *
    * \param src (value to copy)
    */
-  void copyFrom(JointData &src);
+  void copyFrom(const JointData& src);
 
   /**
    * \brief returns the maximum number of joints the message holds
@@ -139,12 +141,12 @@ public:
    *
    * \return true if equal
    */
-  bool operator==(JointData &rhs);
+  bool operator==(const JointData& rhs) const;
 
   // Overrides - SimpleSerialize
-  bool load(industrial::byte_array::ByteArray *buffer);
+  bool load(industrial::byte_array::ByteArray *buffer) const;
   bool unload(industrial::byte_array::ByteArray *buffer);
-  unsigned int byteLength()
+  unsigned int byteLength() const
   {
     return MAX_NUM_JOINTS * sizeof(industrial::shared_types::shared_real);
   }

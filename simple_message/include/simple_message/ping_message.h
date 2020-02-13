@@ -32,6 +32,8 @@
 #ifndef PING_MESSAGE_H
 #define PING_MESSAGE_H
 
+#include "config.h"
+
 #ifndef FLATHEADERS
 #include "simple_message/typed_message.h"
 #include "simple_message/simple_message.h"
@@ -80,7 +82,7 @@ public:
    *
    * \return true if message successfully initialized, otherwise false
    */
-  bool init(industrial::simple_message::SimpleMessage & msg);
+  bool init(const industrial::simple_message::SimpleMessage& msg);
 
   /**
    * \brief Initializes a new ping message
@@ -94,14 +96,14 @@ public:
      *
      */
   bool toTopic(industrial::simple_message::SimpleMessage & msg)
-    {
-  	  return false;
-    }
+  {
+    return false;
+  }
 
   // Overrides - SimpleSerialize
-    bool load(industrial::byte_array::ByteArray *buffer){return true;}
-    bool unload(industrial::byte_array::ByteArray *buffer){return true;}
-    unsigned int byteLength(){return 0;}
+  bool load(industrial::byte_array::ByteArray *buffer) const { return true; }
+  bool unload(industrial::byte_array::ByteArray *buffer) { return true; }
+  unsigned int byteLength() const { return 0; }
 
 private:
 

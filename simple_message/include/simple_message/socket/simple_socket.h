@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -31,6 +31,8 @@
 
 #ifndef SIMPLE_SOCKET_H
 #define SIMPLE_SOCKET_H
+
+#include "config.h"
 
 #ifndef FLATHEADERS
 #include "simple_message/log_wrapper.h"
@@ -156,11 +158,11 @@ public:
      */
   virtual ~SimpleSocket(){}
 
-  bool isConnected()
+  bool isConnected() const
   {
     return connected_;
   }
-  
+
   // Internally set the state of the connection to be disconnected.
   // This is needed in UDP connections to signal when a timeout has occurred 
   // and the connection needs to be reestablished using the handshake protocol.
@@ -168,7 +170,7 @@ public:
   {
     setConnected(false);
   }
-  
+
   /**
    * \brief returns true if socket data is ready to receive
    *
@@ -194,7 +196,7 @@ protected:
    * \brief address/port of remote socket
    */
   sockaddr_in sockaddr_;
-  
+
   /**
    * \brief flag indicating socket connection status
    */
@@ -221,7 +223,7 @@ protected:
    */
   char buffer_[MAX_BUFFER_SIZE + 1];
 
-  int  getSockHandle() const
+  int getSockHandle() const
   {
     return sock_handle_;
   }
@@ -255,7 +257,7 @@ protected:
   {
     LOG_ERROR("%s, rc: %d. Error: '%s' (errno: %d)", msg, rc, strerror(error_no), error_no);
   }
-  
+
   // Send/Receive functions (inherited classes should override raw methods
   // Virtual
   bool sendBytes(industrial::byte_array::ByteArray & buffer);

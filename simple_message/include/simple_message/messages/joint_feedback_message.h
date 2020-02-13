@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2013, Southwest Research Institute
@@ -31,6 +31,8 @@
 
 #ifndef JOINT_FEEDBACK_MESSAGE_H
 #define JOINT_FEEDBACK_MESSAGE_H
+
+#include "config.h"
 
 #ifndef FLATHEADERS
 #include "simple_message/typed_message.h"
@@ -85,7 +87,7 @@ public:
    *
    * \return true if message successfully initialized, otherwise false
    */
-  bool init(industrial::simple_message::SimpleMessage & msg);
+  bool init(const industrial::simple_message::SimpleMessage& msg);
 
   /**
    * \brief Initializes message from a joint feedback structure
@@ -93,7 +95,7 @@ public:
    * \param joint feedback data structure
    *
    */
-  void init(industrial::joint_feedback::JointFeedback & data);
+  void init(const industrial::joint_feedback::JointFeedback& data);
 
   /**
    * \brief Initializes a new message
@@ -102,43 +104,40 @@ public:
   void init();
 
   // Overrides - SimpleSerialize
-  bool load(industrial::byte_array::ByteArray *buffer);
+  bool load(industrial::byte_array::ByteArray *buffer) const;
   bool unload(industrial::byte_array::ByteArray *buffer);
 
-  unsigned int byteLength()
+  unsigned int byteLength() const
   {
     return this->data_.byteLength();
   }
 
-  industrial::shared_types::shared_int getRobotID()
+  industrial::shared_types::shared_int getRobotID() const
   {
     return this->data_.getRobotID();
   }
 
-  bool getTime(industrial::shared_types::shared_real & time)
+  bool getTime(industrial::shared_types::shared_real& time) const
   {
     return this->data_.getTime(time);
   }
 
-  bool getPositions(industrial::joint_data::JointData &dest)
+  bool getPositions(industrial::joint_data::JointData& dest) const
   {
     return this->data_.getPositions(dest);
   }
 
-  bool getVelocities(industrial::joint_data::JointData &dest)
+  bool getVelocities(industrial::joint_data::JointData& dest) const
   {
     return this->data_.getVelocities(dest);
   }
 
-  bool getAccelerations(industrial::joint_data::JointData &dest)
+  bool getAccelerations(industrial::joint_data::JointData& dest) const
   {
     return this->data_.getAccelerations(dest);
   }
 
-private:
-
   industrial::joint_feedback::JointFeedback data_;
-
 };
 
 }

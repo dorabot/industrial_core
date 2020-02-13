@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -61,7 +61,7 @@ JointTrajPtMessage::~JointTrajPtMessage(void)
 
 }
 
-bool JointTrajPtMessage::init(industrial::simple_message::SimpleMessage & msg)
+bool JointTrajPtMessage::init(const industrial::simple_message::SimpleMessage& msg)
 {
   bool rtn = false;
   ByteArray data = msg.getData();
@@ -78,7 +78,7 @@ bool JointTrajPtMessage::init(industrial::simple_message::SimpleMessage & msg)
   return rtn;
 }
 
-void JointTrajPtMessage::init(industrial::joint_traj_pt::JointTrajPt & point)
+void JointTrajPtMessage::init(const industrial::joint_traj_pt::JointTrajPt& point)
 {
 	this->init();
 	this->point_.copyFrom(point);
@@ -90,8 +90,7 @@ void JointTrajPtMessage::init()
   this->point_.init();
 }
 
-
-bool JointTrajPtMessage::load(ByteArray *buffer)
+bool JointTrajPtMessage::load(ByteArray *buffer) const
 {
 	bool rtn = false;
 	LOG_COMM("Executing joint traj. pt. message load");
@@ -114,7 +113,7 @@ bool JointTrajPtMessage::unload(ByteArray *buffer)
 
   if (buffer->unload(this->point_))
   {
-	  rtn = true;
+    rtn = true;
   }
   else
   {
@@ -126,4 +125,3 @@ bool JointTrajPtMessage::unload(ByteArray *buffer)
 
 }
 }
-

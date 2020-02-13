@@ -32,6 +32,8 @@
 #ifndef ROBOT_STATUS_MESSAGE_H
 #define ROBOT_STATUS_MESSAGE_H
 
+#include "config.h"
+
 #ifndef FLATHEADERS
 #include "simple_message/typed_message.h"
 #include "simple_message/simple_message.h"
@@ -85,7 +87,7 @@ public:
    *
    * \return true if message successfully initialized, otherwise false
    */
-  bool init(industrial::simple_message::SimpleMessage & msg);
+  bool init(const industrial::simple_message::SimpleMessage& msg);
 
   /**
    * \brief Initializes message from a robot status structure
@@ -93,7 +95,7 @@ public:
    * \param status strcutre to initialize from
    *
    */
-  void init(industrial::robot_status::RobotStatus & status);
+  void init(const industrial::robot_status::RobotStatus& status);
 
   /**
    * \brief Initializes a new robot status message
@@ -101,16 +103,14 @@ public:
    */
   void init();
 
-
   // Overrides - SimpleSerialize
-  bool load(industrial::byte_array::ByteArray *buffer);
+  bool load(industrial::byte_array::ByteArray *buffer) const;
   bool unload(industrial::byte_array::ByteArray *buffer);
 
-  unsigned int byteLength()
+  unsigned int byteLength() const
   {
     return this->status_.byteLength();
   }
-  
 
   industrial::robot_status::RobotStatus status_;
 

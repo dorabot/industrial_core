@@ -32,6 +32,8 @@
 #ifndef SIMPLE_MESSAGE_CONNECTION_H
 #define SIMPLE_MESSAGE_CONNECTION_H
 
+#include "config.h"
+
 #ifndef FLATHEADERS
 #include "simple_message/byte_array.h"
 #include "simple_message/simple_message.h"
@@ -64,7 +66,7 @@ class SmplMsgConnection
 public:
 
   // Message
-  
+
   /**
    * \brief Sends a message using the data connection
    *
@@ -73,7 +75,7 @@ public:
    * \return true if successful
    */
   virtual bool sendMsg(industrial::simple_message::SimpleMessage & message);
-  
+
   /**
    * \brief Receives a message using the data connection
    *
@@ -82,7 +84,7 @@ public:
    * \return true if successful
    */
   virtual bool receiveMsg(industrial::simple_message::SimpleMessage & message);
-  
+
   /**
    * \brief Performs a complete send and receive.  This is helpful when sending
    * a message that requires and explicit reply
@@ -94,7 +96,7 @@ public:
    * \return true if successful
    */
   bool sendAndReceiveMsg(industrial::simple_message::SimpleMessage & send,
-                         industrial::simple_message::SimpleMessage & recv, 
+                         industrial::simple_message::SimpleMessage & recv,
                          bool verbose = false);
 
   /**
@@ -102,7 +104,7 @@ public:
    *
    * \return true if connected
    */
-  virtual bool isConnected()=0;
+  virtual bool isConnected() const=0;
 
   /**
    * \brief connects to the remote host
@@ -123,7 +125,7 @@ private:
    * \return true if successful
    */
   virtual bool sendBytes(industrial::byte_array::ByteArray & buffer) =0;
-  
+
   /**
    * \brief Method used by receive message interface method.  This should be overridden 
    * for the specific connection type

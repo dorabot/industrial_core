@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Yaskawa America, Inc.
@@ -157,4 +157,3 @@ bool UdpSocket::rawPoll(int timeout, bool & ready, bool & error)
 
 } //udp_socket
 } //industrial
-

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -50,16 +50,14 @@ MessageHandler::MessageHandler(void)
   this->setMsgType(StandardMsgTypes::INVALID);
 }
 
-
 MessageHandler::~MessageHandler(void)
 {
 }
 
-
 bool MessageHandler::init(int msg_type, SmplMsgConnection* connection)
 {
   bool rtn = false;
-  
+
   if (StandardMsgTypes::INVALID != msg_type)
   {
     if (NULL != connection)
@@ -73,22 +71,20 @@ bool MessageHandler::init(int msg_type, SmplMsgConnection* connection)
       LOG_ERROR("Message connection is NULL");
       rtn = false;
     }
-    }
+  }
   else
   {
     LOG_ERROR("Message handler type: %d, not valid", msg_type);
     rtn = false;
-    }
-    
+  }
+
   return rtn;
 }
 
-    
-    
-bool MessageHandler::callback(SimpleMessage & in)
+bool MessageHandler::callback(const SimpleMessage& in)
 {
   bool rtn = false;
-  
+
   if (validateMsg(in))
   {
     this->internalCB(in);
@@ -98,15 +94,14 @@ bool MessageHandler::callback(SimpleMessage & in)
     LOG_ERROR("Invalid message passed to callback");
     rtn = true;
   }
-  
+
   return rtn;
 }
 
-
-bool MessageHandler::validateMsg(SimpleMessage & in)
+bool MessageHandler::validateMsg(const SimpleMessage& in) const
 {
   bool rtn = false;
-  
+
   if (in.validateMessage())
   {
     if (in.getMessageType() == this->getMsgType())
@@ -116,7 +111,7 @@ bool MessageHandler::validateMsg(SimpleMessage & in)
     else
     {
       LOG_WARN("Message type: %d, doesn't match handler type: %d",
-                  in.getMessageType(), this->getMsgType());
+          in.getMessageType(), this->getMsgType());
       rtn = false;
     }
   }
@@ -126,7 +121,6 @@ bool MessageHandler::validateMsg(SimpleMessage & in)
   }
 
   return rtn;
-  
 }
 
 } // namespace message_handler

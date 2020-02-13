@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2015, Southwest Research Institute
@@ -83,7 +83,7 @@ bool ByteArray::init(const char* buffer, const shared_int byte_size)
   return rtn;
 }
 
-void ByteArray::copyFrom(ByteArray & buffer)
+void ByteArray::copyFrom(const ByteArray& buffer)
 {
   if (buffer.getBufferSize() != 0)
   {
@@ -95,7 +95,7 @@ void ByteArray::copyFrom(ByteArray & buffer)
   }
 }
 
-void ByteArray::copyTo(std::vector<char> &out)
+void ByteArray::copyTo(std::vector<char>& out)
 {
   out.assign(buffer_.begin(), buffer_.end());
 }
@@ -166,17 +166,17 @@ bool ByteArray::load(shared_int value)
   return this->load(&value, sizeof(shared_int));
 }
 
-bool ByteArray::load(simple_serialize::SimpleSerialize &value)
+bool ByteArray::load(const simple_serialize::SimpleSerialize& value)
 {
   LOG_COMM("Executing byte array load through simple serialize");
   return value.load(this);
 }
 
-bool ByteArray::load(ByteArray &value)
+bool ByteArray::load(const ByteArray& value)
 {
   LOG_COMM("Executing byte array load through byte array");
-  std::deque<char>& src = value.buffer_;
-  std::deque<char>& dest  = this->buffer_;
+  const std::deque<char>& src = value.buffer_;
+  std::deque<char>& dest = this->buffer_;
 
   if (this->getBufferSize()+value.getBufferSize() > this->getMaxBufferSize())
   {
@@ -190,7 +190,6 @@ bool ByteArray::load(ByteArray &value)
 
 bool ByteArray::load(void* value, const shared_int byte_size)
 {
-
   bool rtn;
 
   LOG_COMM("Executing byte array load through void*, size: %d", byte_size);
@@ -234,7 +233,6 @@ bool ByteArray::unload(shared_bool & value)
 {
   shared_bool rtn = this->unload(&value, sizeof(shared_bool));
   return rtn;
-
 }
 
 bool ByteArray::unload(shared_real &value)
@@ -384,12 +382,12 @@ bool ByteArray::unloadFront(void* value, const industrial::shared_types::shared_
   return rtn;
 }
 
-unsigned int ByteArray::getBufferSize()
+unsigned int ByteArray::getBufferSize() const
 {
   return this->buffer_.size();
 }
 
-unsigned int ByteArray::getMaxBufferSize()
+unsigned int ByteArray::getMaxBufferSize() const
 {
   return this->buffer_.max_size();
 }

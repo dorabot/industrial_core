@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2013, Southwest Research Institute
@@ -68,9 +68,9 @@ void JointFeedback::init()
 void JointFeedback::init(industrial::shared_types::shared_int robot_id,
           industrial::shared_types::shared_int valid_fields,
           industrial::shared_types::shared_real time,
-          industrial::joint_data::JointData & positions,
-          industrial::joint_data::JointData & velocities,
-          industrial::joint_data::JointData & accelerations)
+          const industrial::joint_data::JointData& positions,
+          const industrial::joint_data::JointData& velocities,
+          const industrial::joint_data::JointData& accelerations)
 {
   this->setRobotID(robot_id);
   this->setTime(time);
@@ -80,7 +80,7 @@ void JointFeedback::init(industrial::shared_types::shared_int robot_id,
   this->valid_fields_ = valid_fields;  // must happen after others are set
 }
 
-void JointFeedback::copyFrom(JointFeedback &src)
+void JointFeedback::copyFrom(const JointFeedback& src)
 {
   this->setRobotID(src.getRobotID());
   src.getTime(this->time_);
@@ -90,7 +90,7 @@ void JointFeedback::copyFrom(JointFeedback &src)
   this->valid_fields_ = src.valid_fields_;
 }
 
-bool JointFeedback::operator==(JointFeedback &rhs)
+bool JointFeedback::operator==(const JointFeedback& rhs) const
 {
   return this->robot_id_ == rhs.robot_id_ &&
          this->valid_fields_ == rhs.valid_fields_ &&
@@ -100,7 +100,7 @@ bool JointFeedback::operator==(JointFeedback &rhs)
          ( !is_valid(ValidFieldTypes::ACCELERATION) || (this->accelerations_ == rhs.accelerations_) );
 }
 
-bool JointFeedback::load(industrial::byte_array::ByteArray *buffer)
+bool JointFeedback::load(industrial::byte_array::ByteArray *buffer) const
 {
   LOG_COMM("Executing joint feedback load");
 
@@ -190,4 +190,3 @@ bool JointFeedback::unload(industrial::byte_array::ByteArray *buffer)
 
 }
 }
-

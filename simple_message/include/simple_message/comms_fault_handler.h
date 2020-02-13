@@ -32,6 +32,8 @@
 #ifndef COMMS_FAULT_HANDLER_H
 #define COMMS_FAULT_HANDLER_H
 
+#include "config.h"
+
 namespace industrial
 {
 namespace comms_fault_handler

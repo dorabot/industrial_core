@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -166,4 +166,3 @@ bool TcpServer::makeConnect()
 
 } //tcp_socket
 } //industrial
-

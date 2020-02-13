@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -67,16 +67,16 @@ int TcpSocket::rawSendBytes(char *buffer, shared_int num_bytes)
   int rc = this->SOCKET_FAIL;
 
   rc = SEND(this->getSockHandle(), buffer, num_bytes, 0);
-  
+
   return rc;
 }
 
 int TcpSocket::rawReceiveBytes(char *buffer, shared_int num_bytes)
 {
   int rc = this->SOCKET_FAIL;
-  
+
   rc = RECV(this->getSockHandle(), buffer, num_bytes, 0);
-  
+
   return rc;
 }
 
@@ -128,4 +128,3 @@ bool TcpSocket::rawPoll(int timeout, bool & ready, bool & error)
 
 } //tcp_socket
 } //industrial
-

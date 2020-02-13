@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2013, Southwest Research Institute
@@ -61,7 +61,7 @@ JointTrajPtFullMessage::~JointTrajPtFullMessage(void)
 
 }
 
-bool JointTrajPtFullMessage::init(industrial::simple_message::SimpleMessage & msg)
+bool JointTrajPtFullMessage::init(const industrial::simple_message::SimpleMessage& msg)
 {
   bool rtn = false;
   ByteArray data = msg.getData();
@@ -78,7 +78,7 @@ bool JointTrajPtFullMessage::init(industrial::simple_message::SimpleMessage & ms
   return rtn;
 }
 
-void JointTrajPtFullMessage::init(industrial::joint_traj_pt_full::JointTrajPtFull & point)
+void JointTrajPtFullMessage::init(const industrial::joint_traj_pt_full::JointTrajPtFull& point)
 {
   this->init();
   this->point_.copyFrom(point);
@@ -90,8 +90,7 @@ void JointTrajPtFullMessage::init()
   this->point_.init();
 }
 
-
-bool JointTrajPtFullMessage::load(ByteArray *buffer)
+bool JointTrajPtFullMessage::load(ByteArray *buffer) const
 {
   bool rtn = false;
   LOG_COMM("Executing joint traj. pt. message load");
@@ -126,4 +125,3 @@ bool JointTrajPtFullMessage::unload(ByteArray *buffer)
 
 }
 }
-

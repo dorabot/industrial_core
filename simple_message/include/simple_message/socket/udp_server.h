@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Yaskawa America, Inc.
@@ -31,6 +31,8 @@
 
 #ifndef UDP_SERVER_H
 #define UDP_SERVER_H
+
+#include "config.h"
 
 #ifndef FLATHEADERS
 #include "simple_message/socket/udp_socket.h"

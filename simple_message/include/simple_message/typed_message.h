@@ -32,6 +32,8 @@
 #ifndef TYPED_MESSAGE_H
 #define TYPED_MESSAGE_H
 
+#include "config.h"
+
 #ifndef FLATHEADERS
 #include "simple_message/simple_message.h"
 #include "simple_message/byte_array.h"
@@ -80,7 +82,7 @@ public:
    *
    * \return true if message successfully initialized, otherwise false
    */
-  virtual bool init(industrial::simple_message::SimpleMessage & msg)=0;
+  virtual bool init(const industrial::simple_message::SimpleMessage& msg)=0;
 
   /**
    * \brief Initializes a new empty message
@@ -93,13 +95,13 @@ public:
    *
    * \return true if message successfully initialized, otherwise false
    */
-  virtual bool toRequest(industrial::simple_message::SimpleMessage & msg)
+  virtual bool toRequest(industrial::simple_message::SimpleMessage& msg) const
   {
-	  industrial::byte_array::ByteArray data;
-	  data.load(*this);
-	  return msg.init(this->getMessageType(),
-			  industrial::simple_message::CommTypes::SERVICE_REQUEST,
-			  industrial::simple_message::ReplyTypes::INVALID, data);
+    industrial::byte_array::ByteArray data;
+    data.load(*this);
+    return msg.init(this->getMessageType(),
+        industrial::simple_message::CommTypes::SERVICE_REQUEST,
+        industrial::simple_message::ReplyTypes::INVALID, data);
   }
 
   /**
@@ -107,28 +109,29 @@ public:
    *
    * \return true if message successfully initialized, otherwise false
    */
-  virtual bool toReply(industrial::simple_message::SimpleMessage & msg,
-		  industrial::simple_message::ReplyType reply)
+  virtual bool toReply(industrial::simple_message::SimpleMessage& msg,
+      industrial::simple_message::ReplyType reply) const
   {
-	  industrial::byte_array::ByteArray data;
-	data.load(*this);
-	return msg.init(this->getMessageType(),
-			industrial::simple_message::CommTypes::SERVICE_REPLY,
-			reply, data);
+    industrial::byte_array::ByteArray data;
+    data.load(*this);
+    return msg.init(this->getMessageType(),
+        industrial::simple_message::CommTypes::SERVICE_REPLY,
+        reply, data);
   }
   /**
    * \brief creates a simple_message topic
    *
    * \return true if message successfully initialized, otherwise false
    */
-  virtual bool toTopic(industrial::simple_message::SimpleMessage & msg)
+  virtual bool toTopic(industrial::simple_message::SimpleMessage& msg) const
   {
-	  industrial::byte_array::ByteArray data;
+    industrial::byte_array::ByteArray data;
     data.load(*this);
     return msg.init(this->getMessageType(),
-    		industrial::simple_message::CommTypes::TOPIC,
-    		industrial::simple_message::ReplyTypes::INVALID, data);
+        industrial::simple_message::CommTypes::TOPIC,
+        industrial::simple_message::ReplyTypes::INVALID, data);
   }
+
   /**
    * \brief gets message type (enumeration)
    *
@@ -138,7 +141,7 @@ public:
   {
     return message_type_;
   }
-  
+
   /**
    * \brief Gets the communication type of the message
    * 
@@ -160,7 +163,7 @@ protected:
   {
     this->message_type_ = message_type;
   }
-  
+
   /**
    * \brief Sets the communication type of the message
    *
@@ -178,7 +181,7 @@ private:
    */
 
   int message_type_;
-    
+
   /**
    * \brief Communications type (see simple_message::CommTypes::CommType)
    */

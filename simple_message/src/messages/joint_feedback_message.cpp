@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2013, Southwest Research Institute
@@ -60,7 +60,7 @@ JointFeedbackMessage::~JointFeedbackMessage(void)
 
 }
 
-bool JointFeedbackMessage::init(industrial::simple_message::SimpleMessage & msg)
+bool JointFeedbackMessage::init(const industrial::simple_message::SimpleMessage& msg)
 {
   bool rtn = false;
   ByteArray data = msg.getData();
@@ -77,7 +77,7 @@ bool JointFeedbackMessage::init(industrial::simple_message::SimpleMessage & msg)
   return rtn;
 }
 
-void JointFeedbackMessage::init(industrial::joint_feedback::JointFeedback & data)
+void JointFeedbackMessage::init(const industrial::joint_feedback::JointFeedback& data)
 {
   this->init();
   this->data_.copyFrom(data);
@@ -89,7 +89,7 @@ void JointFeedbackMessage::init()
   this->data_.init();
 }
 
-bool JointFeedbackMessage::load(ByteArray *buffer)
+bool JointFeedbackMessage::load(ByteArray *buffer) const
 {
   bool rtn = false;
   LOG_COMM("Executing joint feedback message load");
@@ -124,4 +124,3 @@ bool JointFeedbackMessage::unload(ByteArray *buffer)
 
 }
 }
-

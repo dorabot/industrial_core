@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -31,6 +31,8 @@
 
 #ifndef JOINT_TRAJ_H
 #define JOINT_TRAJ_H
+
+#include "config.h"
 
 #ifndef FLATHEADERS
 #include "simple_message/simple_message.h"
@@ -70,92 +72,94 @@ namespace joint_traj
 class JointTraj : public industrial::simple_serialize::SimpleSerialize
 {
 public:
-	/**
-	 * \brief Default constructor
-	 *
-	 * This method creates empty data.
-	 *
-	 */
-	JointTraj(void);
-	/**
-	 * \brief Destructor
-	 *
-	 */
-	~JointTraj(void);
+  /**
+   * \brief Default constructor
+   *
+   * This method creates empty data.
+   *
+   */
+  JointTraj(void);
 
-	/**
-	 * \brief Initializes a empty joint data
-	 *
-	 */
-	void init();
+  /**
+   * \brief Destructor
+   *
+   */
+  ~JointTraj(void);
 
-	/**
-	 * \brief Adds a point value to the end of the buffer
-	 *
-	 * \param point value
-	 *
-	 * \return true if value set, otherwise false (buffer is full)
-	 */
-	bool addPoint(industrial::joint_traj_pt::JointTrajPt & point);
+  /**
+   * \brief Initializes a empty joint data
+   *
+   */
+  void init();
 
-	/**
-	 * \brief Gets a point value within the buffer
-	 *
-	 * \param point index
-	 * \param point value
-	 *
-	 * \return true if value set, otherwise false (index greater than size)
-	 */
-	bool getPoint(industrial::shared_types::shared_int index,
-			industrial::joint_traj_pt::JointTrajPt & point);
-	/**
-	 * \brief Gets a size of trajectory
-	 *
-	 * \return trajectory size
-	 */
-	industrial::shared_types::shared_int size()
-	{
-		return this->size_;
-	}
+  /**
+   * \brief Adds a point value to the end of the buffer
+   *
+   * \param point value
+   *
+   * \return true if value set, otherwise false (buffer is full)
+   */
+  bool addPoint(const industrial::joint_traj_pt::JointTrajPt& point);
 
-	/**
-	 * \brief returns True if buffer is full
-	 *
-	 * \return true if buffer is full
-	 */
-	bool isFull()
-	{
-		return this->size_ >= this->getMaxNumPoints();
-	}
+  /**
+   * \brief Gets a point value within the buffer
+   *
+   * \param point index
+   * \param point value
+   *
+   * \return true if value set, otherwise false (index greater than size)
+   */
+  bool getPoint(industrial::shared_types::shared_int index,
+      industrial::joint_traj_pt::JointTrajPt& point) const;
 
-	/**
-	 * \brief returns the maximum number of points the message holds
-	 *
-	 * \return max number of points
-	 */
-	int getMaxNumPoints() const
-	{
-		return MAX_NUM_POINTS;
-	}
+  /**
+   * \brief Gets a size of trajectory
+   *
+   * \return trajectory size
+   */
+  industrial::shared_types::shared_int size() const
+  {
+    return this->size_;
+  }
 
-	/**
-	 * \brief Copies the passed in value
-	 *
-	 * \param src (value to copy)
-	 */
-	void copyFrom(JointTraj &src);
+  /**
+   * \brief returns True if buffer is full
+   *
+   * \return true if buffer is full
+   */
+  bool isFull() const
+  {
+    return this->size_ >= this->getMaxNumPoints();
+  }
 
-	/**
-	 * \brief == operator implementation
-	 *
-	 * \return true if equal
-	 */
-	bool operator==(JointTraj &rhs);
+  /**
+   * \brief returns the maximum number of points the message holds
+   *
+   * \return max number of points
+   */
+  int getMaxNumPoints() const
+  {
+    return MAX_NUM_POINTS;
+  }
+
+  /**
+   * \brief Copies the passed in value
+   *
+   * \param src (value to copy)
+   */
+  void copyFrom(const JointTraj& src);
+
+  /**
+   * \brief == operator implementation
+   *
+   * \return true if equal
+   */
+  bool operator==(const JointTraj& rhs) const;
 
 	// Overrides - SimpleSerialize
-	bool load(industrial::byte_array::ByteArray *buffer);
+	bool load(industrial::byte_array::ByteArray *buffer) const;
 	bool unload(industrial::byte_array::ByteArray *buffer);
-	unsigned int byteLength()
+	unsigned int byteLength() const
 	{
 		industrial::joint_traj_pt::JointTrajPt pt;
 		return this->size() * pt.byteLength();
@@ -164,17 +168,17 @@ public:
 private:
 
 	/**
-	 * \brief maximum number of joints positions that can be held in the message.
-	 */
-	static const industrial::shared_types::shared_int MAX_NUM_POINTS = 200;
-	/**
-	 * \brief internal data buffer
-	 */
-	industrial::joint_traj_pt::JointTrajPt points_[MAX_NUM_POINTS];
-	/**
-	 * \brief size of trajectory
-	 */
-	industrial::shared_types::shared_int size_;
+   * \brief maximum number of joints positions that can be held in the message.
+   */
+  static const industrial::shared_types::shared_int MAX_NUM_POINTS = 200;
+  /**
+   * \brief internal data buffer
+   */
+  industrial::joint_traj_pt::JointTrajPt points_[MAX_NUM_POINTS];
+  /**
+   * \brief size of trajectory
+   */
+  industrial::shared_types::shared_int size_;
 
 };
 

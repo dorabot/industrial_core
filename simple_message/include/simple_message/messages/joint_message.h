@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -31,6 +31,8 @@
 
 #ifndef JOINT_MESSAGE_H
 #define JOINT_MESSAGE_H
+
+#include "config.h"
 
 #ifndef FLATHEADERS
 #include "simple_message/typed_message.h"
@@ -104,7 +106,7 @@ public:
    *
    * \return true if message successfully initialized, otherwise false
    */
-  bool init(industrial::simple_message::SimpleMessage & msg);
+  bool init(const industrial::simple_message::SimpleMessage& msg);
 
   /**
    * \brief Initializes message from a joint structure
@@ -113,7 +115,7 @@ public:
    * \param joints
    *
    */
-  void init(industrial::shared_types::shared_int seq, industrial::joint_data::JointData & joints);
+  void init(industrial::shared_types::shared_int seq, const industrial::joint_data::JointData& joints);
 
   /**
    * \brief Initializes a new joint message
@@ -133,7 +135,7 @@ public:
    *
    * \return message sequence number
    */
-  industrial::shared_types::shared_int getSequence()
+  industrial::shared_types::shared_int getSequence() const
   {
     return sequence_;
   }
@@ -148,11 +150,16 @@ public:
     return this->joints_;
   }
 
+  const industrial::joint_data::JointData& getJoints() const
+  {
+    return this->joints_;
+  }
+
   // Overrides - SimpleSerialize
-  bool load(industrial::byte_array::ByteArray *buffer);
+  bool load(industrial::byte_array::ByteArray *buffer) const;
   bool unload(industrial::byte_array::ByteArray *buffer);
 
-  unsigned int byteLength()
+  unsigned int byteLength() const
   {
     return sizeof(industrial::shared_types::shared_int) + this->joints_.byteLength();
   }

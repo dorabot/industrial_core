@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2015, Southwest Research Institute
@@ -31,6 +31,8 @@
 
 #ifndef BYTE_ARRAY_H
 #define BYTE_ARRAY_H
+
+#include "config.h"
 
 #ifndef FLATHEADERS
 #include "simple_message/shared_types.h"
@@ -128,7 +130,7 @@ public:
    * \param buffer buffer to copy
    *
    */
-  void copyFrom(ByteArray & buffer);
+  void copyFrom(const ByteArray& buffer);
 
   /**
    * \brief Copy to std::vector, for raw-ptr access
@@ -138,7 +140,7 @@ public:
    * \param out vector to copy into
    *
    */
-  void copyTo(std::vector<char> & out);
+  void copyTo(std::vector<char>& out);
 
   /**
    * \brief loads a boolean into the byte array
@@ -181,7 +183,7 @@ public:
    * \return true on success, false otherwise (max array size exceeded).
    * Value not loaded
    */
-  bool load(industrial::simple_serialize::SimpleSerialize &value);
+  bool load(const industrial::simple_serialize::SimpleSerialize& value);
 
   /**
    * \brief loads a whole byte array into this byte array
@@ -191,7 +193,7 @@ public:
    * \return true on success, false otherwise (max array size exceeded).
    * Value not loaded
    */
-  bool load(ByteArray &value);
+  bool load(const ByteArray& value);
 
   /**
    * \brief loads a void* (treated as char*) into the byte array.
@@ -313,14 +315,14 @@ public:
    *
    * \return buffer size
    */
-  unsigned int getBufferSize();
+  unsigned int getBufferSize() const;
 
   /**
    * \brief gets current buffer size
    *
    * \return buffer size
    */
-  unsigned int getMaxBufferSize();
+  unsigned int getMaxBufferSize() const;
 
   /**
      * \brief returns true if byte swapping is enabled (this is a global
@@ -337,7 +339,7 @@ private:
    * \brief internal data buffer
    */
   std::deque<char> buffer_;
-  
+
   /**
    * \brief temporary continuous buffer for getRawDataPtr() use
    */

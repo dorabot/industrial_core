@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -112,9 +112,9 @@ RobotStatus::RobotStatus(void)
 {
   this->init();
 }
+
 RobotStatus::~RobotStatus(void)
 {
-
 }
 
 void RobotStatus::init()
@@ -135,7 +135,7 @@ void RobotStatus::init(TriState drivesPowered, TriState eStopped, industrial::sh
   this->setMotionPossible(motionPossible);
 }
 
-void RobotStatus::copyFrom(RobotStatus &src)
+void RobotStatus::copyFrom(const RobotStatus& src)
 {
   this->setDrivesPowered(src.getDrivesPowered());
   this->setEStopped(src.getEStopped());
@@ -146,14 +146,14 @@ void RobotStatus::copyFrom(RobotStatus &src)
   this->setMotionPossible(src.getMotionPossible());
 }
 
-bool RobotStatus::operator==(RobotStatus &rhs)
+bool RobotStatus::operator==(const RobotStatus& rhs) const
 {
   return this->drives_powered_ == rhs.drives_powered_ && this->e_stopped_ == rhs.e_stopped_
       && this->error_code_ == rhs.error_code_ && this->in_error_ == rhs.in_error_ && this->in_motion_ == rhs.in_motion_
       && this->mode_ == rhs.mode_ && this->motion_possible_ == rhs.motion_possible_;
 }
 
-bool RobotStatus::load(industrial::byte_array::ByteArray *buffer)
+bool RobotStatus::load(industrial::byte_array::ByteArray *buffer) const
 {
   bool rtn = false;
 
@@ -201,4 +201,3 @@ bool RobotStatus::unload(industrial::byte_array::ByteArray *buffer)
 
 }
 }
-

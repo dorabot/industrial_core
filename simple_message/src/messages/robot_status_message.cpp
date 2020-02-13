@@ -61,7 +61,7 @@ RobotStatusMessage::~RobotStatusMessage(void)
 
 }
 
-bool RobotStatusMessage::init(industrial::simple_message::SimpleMessage & msg)
+bool RobotStatusMessage::init(const industrial::simple_message::SimpleMessage& msg)
 {
   bool rtn = false;
   ByteArray data = msg.getData();
@@ -79,7 +79,7 @@ bool RobotStatusMessage::init(industrial::simple_message::SimpleMessage & msg)
   return rtn;
 }
 
-void RobotStatusMessage::init(industrial::robot_status::RobotStatus & status)
+void RobotStatusMessage::init(const industrial::robot_status::RobotStatus& status)
 {
   this->init();
   this->status_.copyFrom(status);
@@ -91,7 +91,7 @@ void RobotStatusMessage::init()
   this->status_.init();
 }
 
-bool RobotStatusMessage::load(ByteArray *buffer)
+bool RobotStatusMessage::load(ByteArray *buffer) const
 {
   bool rtn = false;
   LOG_COMM("Executing robot status message load");

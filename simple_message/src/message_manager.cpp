@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -79,7 +79,6 @@ bool MessageManager::init(SmplMsgConnection* connection)
 
   LOG_INFO("Initializing message manager with default comms fault handler");
 
-
   if (NULL != connection)
   {
     this->getDefaultCommsFaultHandler().init(connection);
@@ -99,35 +98,33 @@ bool MessageManager::init(SmplMsgConnection* connection, CommsFaultHandler* faul
 {
   bool rtn = false;
 
-    LOG_INFO("Initializing message manager");
+  LOG_INFO("Initializing message manager");
 
-    if (NULL != connection && NULL != fault_handler)
+  if (NULL != connection && NULL != fault_handler)
+  {
+    this->setConnection(connection);
+    this->getPingHandler().init(connection);
+    this->setCommsFaultHandler(fault_handler);
+
+    if (this->add(&this->getPingHandler()))
     {
-      this->setConnection(connection);
-      this->getPingHandler().init(connection);
-      this->setCommsFaultHandler(fault_handler);
-
-      if (this->add(&this->getPingHandler()))
-      {
-        rtn = true;
-      }
-      else
-      {
-        rtn = false;
-        LOG_WARN("Failed to add ping handler, manager won't respond to pings");
-      }
-
+      rtn = true;
     }
     else
     {
-      LOG_ERROR("NULL connection or NULL fault handler passed into manager init");
       rtn = false;
+      LOG_WARN("Failed to add ping handler, manager won't respond to pings");
     }
 
-    return rtn;
+  }
+  else
+  {
+    LOG_ERROR("NULL connection or NULL fault handler passed into manager init");
+    rtn = false;
   }
 
-
+  return rtn;
+}
 
 void MessageManager::spinOnce()
 {
@@ -198,7 +195,7 @@ void MessageManager::spin()
   }
 }
 
-bool MessageManager::add(MessageHandler * handler, bool allow_replace)
+bool MessageManager::add(MessageHandler* handler, bool allow_replace)
 {
   int idx = -1;
   bool rtn = false;
@@ -263,8 +260,8 @@ int MessageManager::getHandlerIdx(int msg_type)
 
     if (temp->getMsgType() == msg_type)
     {
-        rtn = i;
-        break;
+      rtn = i;
+      break;
     }
   }
 

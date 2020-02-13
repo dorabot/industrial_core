@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2013, Southwest Research Institute
@@ -50,9 +50,9 @@ JointTrajPtFull::JointTrajPtFull(void)
 {
   this->init();
 }
+
 JointTrajPtFull::~JointTrajPtFull(void)
 {
-
 }
 
 void JointTrajPtFull::init()
@@ -70,9 +70,9 @@ void JointTrajPtFull::init(industrial::shared_types::shared_int robot_id,
           industrial::shared_types::shared_int sequence,
           industrial::shared_types::shared_int valid_fields,
           industrial::shared_types::shared_real time,
-          industrial::joint_data::JointData & positions,
-          industrial::joint_data::JointData & velocities,
-          industrial::joint_data::JointData & accelerations)
+          const industrial::joint_data::JointData& positions,
+          const industrial::joint_data::JointData& velocities,
+          const industrial::joint_data::JointData& accelerations)
 {
   this->setRobotID(robot_id);
   this->setSequence(sequence);
@@ -83,7 +83,7 @@ void JointTrajPtFull::init(industrial::shared_types::shared_int robot_id,
   this->valid_fields_ = valid_fields;  // must happen after others are set
 }
 
-void JointTrajPtFull::copyFrom(JointTrajPtFull &src)
+void JointTrajPtFull::copyFrom(const JointTrajPtFull& src)
 {
   this->setRobotID(src.getRobotID());
   this->setSequence(src.getSequence());
@@ -94,7 +94,7 @@ void JointTrajPtFull::copyFrom(JointTrajPtFull &src)
   this->valid_fields_ = src.valid_fields_;
 }
 
-bool JointTrajPtFull::operator==(JointTrajPtFull &rhs)
+bool JointTrajPtFull::operator==(const JointTrajPtFull& rhs) const
 {
   return this->robot_id_ == rhs.robot_id_ &&
          this->sequence_ == rhs.sequence_ &&
@@ -105,7 +105,7 @@ bool JointTrajPtFull::operator==(JointTrajPtFull &rhs)
          ( !is_valid(ValidFieldTypes::ACCELERATION) || (this->accelerations_ == rhs.accelerations_) );
 }
 
-bool JointTrajPtFull::load(industrial::byte_array::ByteArray *buffer)
+bool JointTrajPtFull::load(industrial::byte_array::ByteArray *buffer) const
 {
   LOG_COMM("Executing joint trajectory point load");
 
@@ -207,4 +207,3 @@ bool JointTrajPtFull::unload(industrial::byte_array::ByteArray *buffer)
 
 }
 }
-

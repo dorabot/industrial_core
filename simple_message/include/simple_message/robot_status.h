@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -31,6 +31,8 @@
 
 #ifndef ROBOT_STATUS_H
 #define ROBOT_STATUS_H
+
+#include "config.h"
 
 #ifndef FLATHEADERS
 #include "simple_message/simple_message.h"
@@ -142,12 +144,12 @@ void init();
 void init(TriState drivesPowered, TriState eStopped, industrial::shared_types::shared_int errorCode, TriState inError,
           TriState inMotion, RobotMode mode, TriState motionPossible);
 
-TriState getDrivesPowered()
+TriState getDrivesPowered() const
 {
   return TriState(drives_powered_);
 }
 
-TriState getEStopped()
+TriState getEStopped() const
 {
   return TriState(e_stopped_);
 }
@@ -157,22 +159,22 @@ industrial::shared_types::shared_int getErrorCode() const
   return error_code_;
 }
 
-TriState getInError()
+TriState getInError() const
 {
   return TriState(in_error_);
 }
 
-TriState getInMotion()
+TriState getInMotion() const
 {
   return TriState(in_motion_);
 }
 
-RobotMode getMode()
+RobotMode getMode() const
 {
   return RobotMode(mode_);
 }
 
-TriState getMotionPossible()
+TriState getMotionPossible() const
 {
   return TriState(motion_possible_);
 }
@@ -217,19 +219,19 @@ void setMotionPossible(TriState motionPossible)
  *
  * \param src (value to copy)
  */
-void copyFrom(RobotStatus &src);
+void copyFrom(const RobotStatus& src);
 
 /**
  * \brief == operator implementation
  *
  * \return true if equal
  */
-bool operator==(RobotStatus &rhs);
+bool operator==(const RobotStatus& rhs) const;
 
 // Overrides - SimpleSerialize
-bool load(industrial::byte_array::ByteArray *buffer);
+bool load(industrial::byte_array::ByteArray *buffer) const;
 bool unload(industrial::byte_array::ByteArray *buffer);
-unsigned int byteLength()
+unsigned int byteLength() const
 {
   return 7 * sizeof(industrial::shared_types::shared_int);
 }

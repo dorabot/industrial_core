@@ -1,4 +1,4 @@
-﻿/*
+/*
 * Software License Agreement (BSD License) 
 *
 * Copyright (c) 2011, Southwest Research Institute
@@ -52,7 +52,7 @@ bool PingHandler::init(industrial::smpl_msg_connection::SmplMsgConnection* conne
   return this->init(StandardMsgTypes::PING, connection);
 }
 
-bool PingHandler::internalCB(industrial::simple_message::SimpleMessage & in)
+bool PingHandler::internalCB(const industrial::simple_message::SimpleMessage& in)
 {
   bool rtn = false;
   PingMessage ping;
@@ -93,6 +93,3 @@ bool PingHandler::internalCB(industrial::simple_message::SimpleMessage & in)
 
 }//namespace ping_handler
 }//namespace industrial
-
-
-

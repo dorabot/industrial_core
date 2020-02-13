@@ -50,6 +50,7 @@ JointTraj::JointTraj(void)
 {
 	this->init();
 }
+
 JointTraj::~JointTraj(void)
 {
 
@@ -66,7 +67,7 @@ void JointTraj::init()
 	}
 }
 
-bool JointTraj::addPoint(JointTrajPt & point)
+bool JointTraj::addPoint(const JointTrajPt& point)
 {
 	bool rtn = false;
 
@@ -85,7 +86,7 @@ bool JointTraj::addPoint(JointTrajPt & point)
 	return rtn;
 }
 
-bool JointTraj::getPoint(shared_int index, JointTrajPt & point)
+bool JointTraj::getPoint(shared_int index, JointTrajPt& point) const
 {
 	bool rtn = false;
 
@@ -102,7 +103,7 @@ bool JointTraj::getPoint(shared_int index, JointTrajPt & point)
 	return rtn;
 }
 
-void JointTraj::copyFrom(JointTraj &src)
+void JointTraj::copyFrom(const JointTraj& src)
 {
 	JointTrajPt value;
 
@@ -114,7 +115,7 @@ void JointTraj::copyFrom(JointTraj &src)
 	}
 }
 
-bool JointTraj::operator==(JointTraj &rhs)
+bool JointTraj::operator==(const JointTraj& rhs) const
 {
 	bool rtn = true;
 
@@ -145,8 +146,7 @@ bool JointTraj::operator==(JointTraj &rhs)
 	return rtn;
 }
 
-
-bool JointTraj::load(industrial::byte_array::ByteArray *buffer)
+bool JointTraj::load(industrial::byte_array::ByteArray *buffer) const
 {
 	bool rtn = false;
 	JointTrajPt value;
@@ -203,4 +203,3 @@ bool JointTraj::unload(industrial::byte_array::ByteArray *buffer)
 
 }
 }
-

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -32,6 +32,8 @@
 
 #ifndef PING_HANDLER_H
 #define PING_HANDLER_H
+
+#include "config.h"
 
 #ifndef FLATHEADERS
 #include "simple_message/message_handler.h"
@@ -79,12 +81,10 @@ bool init(industrial::smpl_msg_connection::SmplMsgConnection* connection);
 * \return true on success, false otherwise (an invalid message type)
 */
 bool init(int msg_type, industrial::smpl_msg_connection::SmplMsgConnection* connection)
-{ return MessageHandler::init(msg_type, connection);};
+{ return MessageHandler::init(msg_type, connection); }
 
 
 private:
-
-
 
  /**
   * \brief Callback executed upon receiving a ping message
@@ -93,7 +93,7 @@ private:
   *
   * \return true on success, false otherwise
   */
- bool internalCB(industrial::simple_message::SimpleMessage & in);
+ bool internalCB(const industrial::simple_message::SimpleMessage& in);
 };
 
 }//ping_handler

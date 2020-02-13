@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -102,9 +102,8 @@ shared_real JointData::getJoint(shared_int index) const
   this->getJoint(index, rtn);
   return rtn;
 }
-  
 
-void JointData::copyFrom(JointData &src)
+void JointData::copyFrom(const JointData& src)
 {
   shared_real value = 0.0;
 
@@ -115,7 +114,7 @@ void JointData::copyFrom(JointData &src)
   }
 }
 
-bool JointData::operator==(JointData &rhs)
+bool JointData::operator==(const JointData& rhs) const
 {
   bool rtn = true;
 
@@ -135,7 +134,7 @@ bool JointData::operator==(JointData &rhs)
 
 }
 
-bool JointData::load(industrial::byte_array::ByteArray *buffer)
+bool JointData::load(industrial::byte_array::ByteArray *buffer) const
 {
   bool rtn = false;
   shared_real value = 0.0;
@@ -175,4 +174,3 @@ bool JointData::unload(industrial::byte_array::ByteArray *buffer)
 
 }
 }
-

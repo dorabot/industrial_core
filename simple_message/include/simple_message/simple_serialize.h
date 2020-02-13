@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -32,6 +32,8 @@
 #ifndef SIMPLE_SERIALIZE_H
 #define SIMPLE_SERIALIZE_H
 
+#include "config.h"
+
 #ifndef FLATHEADERS
 #include "simple_message/byte_array.h"
 #else
@@ -62,7 +64,7 @@ public:
    *
    * \return true on success, false otherwise (buffer not large enough)
    */
-  virtual bool load(industrial::byte_array::ByteArray *buffer)=0;
+  virtual bool load(industrial::byte_array::ByteArray *buffer) const = 0;
 
   /**
    * \brief Virtual method for unloading an object from a ByteArray
@@ -74,7 +76,7 @@ public:
    *
    * \return true on success, false otherwise (buffer not large enough)
    */
-  virtual bool unload(industrial::byte_array::ByteArray *buffer)=0;
+  virtual bool unload(industrial::byte_array::ByteArray *buffer) = 0;
 
   /**
    * \brief Virtual method returns the object size when packed into a
@@ -82,7 +84,7 @@ public:
    *
    * \return object size (in bytes)
    */
-  virtual unsigned int byteLength()=0;
+  virtual unsigned int byteLength() const = 0;
 
 };
 

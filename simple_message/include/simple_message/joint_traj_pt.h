@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -31,6 +31,8 @@
 
 #ifndef JOINT_TRAJ_PT_H
 #define JOINT_TRAJ_PT_H
+
+#include "config.h"
 
 #ifndef FLATHEADERS
 #include "simple_message/joint_data.h"
@@ -115,7 +117,7 @@ public:
    * \brief Initializes a complete trajectory point
    *
    */
-  void init(industrial::shared_types::shared_int sequence, industrial::joint_data::JointData & position,
+  void init(industrial::shared_types::shared_int sequence, const industrial::joint_data::JointData& position,
             industrial::shared_types::shared_real velocity, industrial::shared_types::shared_real duration);
 
   /**
@@ -123,7 +125,7 @@ public:
    *
    * \param joint position data
    */
-  void setJointPosition(industrial::joint_data::JointData &position)
+  void setJointPosition(const industrial::joint_data::JointData& position)
   {
     this->joint_position_.copyFrom(position);
   }
@@ -133,7 +135,7 @@ public:
    *
    * \param joint position dest
    */
-  void getJointPosition(industrial::joint_data::JointData &dest)
+  void getJointPosition(industrial::joint_data::JointData& dest) const
   {
     dest.copyFrom(this->joint_position_);
   }
@@ -153,7 +155,7 @@ public:
    *
    * \return joint trajectory sequence number
    */
-  industrial::shared_types::shared_int getSequence()
+  industrial::shared_types::shared_int getSequence() const
   {
     return this->sequence_;
   }
@@ -173,49 +175,49 @@ public:
    *
    * \return joint trajectory velocity
    */
-  industrial::shared_types::shared_real getVelocity()
+  industrial::shared_types::shared_real getVelocity() const
   {
     return this->velocity_;
   }
 
   /**
-     * \brief Sets joint trajectory point duration
-     *
-     * \param velocity value
-     */
-    void setDuration(industrial::shared_types::shared_real duration)
-    {
-      this->duration_ = duration;
-    }
+   * \brief Sets joint trajectory point duration
+   *
+   * \param velocity value
+   */
+  void setDuration(industrial::shared_types::shared_real duration)
+  {
+    this->duration_ = duration;
+  }
 
-    /**
-     * \brief Returns joint trajectory point duration
-     *
-     * \return joint trajectory velocity
-     */
-    industrial::shared_types::shared_real getDuration()
-    {
-      return this->duration_;
-    }
+  /**
+   * \brief Returns joint trajectory point duration
+   *
+   * \return joint trajectory velocity
+   */
+  industrial::shared_types::shared_real getDuration() const
+  {
+    return this->duration_;
+  }
 
   /**
    * \brief Copies the passed in value
    *
    * \param src (value to copy)
    */
-  void copyFrom(JointTrajPt &src);
+  void copyFrom(const JointTrajPt& src);
 
   /**
    * \brief == operator implementation
    *
    * \return true if equal
    */
-  bool operator==(JointTrajPt &rhs);
+  bool operator==(const JointTrajPt& rhs) const;
 
   // Overrides - SimpleSerialize
-  bool load(industrial::byte_array::ByteArray *buffer);
+  bool load(industrial::byte_array::ByteArray *buffer) const;
   bool unload(industrial::byte_array::ByteArray *buffer);
-  unsigned int byteLength()
+  unsigned int byteLength() const
   {
     return sizeof(industrial::shared_types::shared_real) + sizeof(industrial::shared_types::shared_int)
         + this->joint_position_.byteLength();

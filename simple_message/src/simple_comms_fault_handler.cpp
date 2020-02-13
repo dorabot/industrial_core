@@ -47,7 +47,6 @@ SimpleCommsFaultHandler::SimpleCommsFaultHandler()
   this->connection_ = NULL;
 }
 
-
 SimpleCommsFaultHandler::~SimpleCommsFaultHandler()
 {
 }
@@ -72,7 +71,6 @@ bool SimpleCommsFaultHandler::init(industrial::smpl_msg_connection::SmplMsgConne
 
 void SimpleCommsFaultHandler::connectionFailCB()
 {
-
   if (!(this->getConnection()->isConnected()))
   {
     LOG_INFO("Connection failed, attempting reconnect");
@@ -84,11 +82,5 @@ void SimpleCommsFaultHandler::connectionFailCB()
   }
 }
 
-
-
 }//namespace default_comms_fault_handler
 }//namespace industrial
-
-
-
-

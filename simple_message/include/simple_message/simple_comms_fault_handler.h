@@ -32,6 +32,8 @@
 #ifndef DEFAULT_COMMS_FAULT_HANDLER_H
 #define DEFAULT_COMMS_FAULT_HANDLER_H
 
+#include "config.h"
+
 #ifndef FLATHEADERS
 #include "simple_message/comms_fault_handler.h"
 #include "simple_message/smpl_msg_connection.h"
@@ -79,25 +81,24 @@ public:
     */
    bool init(industrial::smpl_msg_connection::SmplMsgConnection* connection);
 
+   /**
+    * \brief Send failure callback method: Nothing is performed
+    *
+    */
+   void sendFailCB() { LOG_WARN("Send failure, no callback support"); }
 
    /**
-      * \brief Send failure callback method: Nothing is performed
-      *
-      */
-     void sendFailCB() {LOG_WARN("Send failure, no callback support");};
+    * \brief Receive failure callback method: Nothing is performed
+    *
+    */
+   void receiveFailCB() { LOG_WARN("Receive failure, no callback support"); }
 
-     /**
-      * \brief Receive failure callback method: Nothing is performed
-      *
-      */
-     void receiveFailCB() {LOG_WARN("Receive failure, no callback support");};
-
-     /**
-      * \brief Connection failure callback method: On a connection failure
-      * a blocking reconnection is attempted.
-      *
-      */
-     void connectionFailCB();
+   /**
+    * \brief Connection failure callback method: On a connection failure
+    * a blocking reconnection is attempted.
+    *
+    */
+   void connectionFailCB();
 
 private:
 
@@ -116,7 +117,6 @@ industrial::smpl_msg_connection::SmplMsgConnection* connection_;
   {
     this->connection_ = connection;
   }
-  ;
 
   /**
    * \brief Gets connection for manager

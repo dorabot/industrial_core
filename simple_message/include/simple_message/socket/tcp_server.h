@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -31,6 +31,8 @@
 
 #ifndef TCP_SERVER_H
 #define TCP_SERVER_H
+
+#include "config.h"
 
 #ifndef FLATHEADERS
 #include "simple_message/socket/tcp_socket.h"

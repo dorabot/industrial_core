@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -58,8 +58,6 @@ SimpleMessage::~SimpleMessage(void)
 {
 }
 
-
-
 bool SimpleMessage::init(int msgType, int commType, int replyCode)
 {
   ByteArray data;
@@ -67,7 +65,7 @@ bool SimpleMessage::init(int msgType, int commType, int replyCode)
   return this->init(msgType, commType, replyCode, data);
 }
 
-bool SimpleMessage::init(int msgType, int commType, int replyCode, ByteArray & data )
+bool SimpleMessage::init(int msgType, int commType, int replyCode, const ByteArray& data)
 {
   LOG_COMM("SimpleMessage::init(type: %d, comm: %d, reply: %d, data[%d]...)",
             msgType, commType, replyCode, data.getBufferSize());
@@ -79,7 +77,7 @@ bool SimpleMessage::init(int msgType, int commType, int replyCode, ByteArray & d
   return this->validateMessage();
 }
 
-bool SimpleMessage::init(ByteArray & msg)
+bool SimpleMessage::init(ByteArray& msg)
 {
   int dataSize = 0;
   bool rtn = false;
@@ -110,7 +108,7 @@ bool SimpleMessage::init(ByteArray & msg)
   return rtn;
 }
 
-void SimpleMessage::toByteArray(ByteArray & msg)
+void SimpleMessage::toByteArray(ByteArray& msg)
 {
   msg.init();
 
@@ -124,16 +122,13 @@ void SimpleMessage::toByteArray(ByteArray & msg)
 
 }
 
-
-void SimpleMessage::setData( ByteArray & data)
+void SimpleMessage::setData(const ByteArray& data)
 {
   this->data_.copyFrom(data);
 }
 
-
-bool SimpleMessage::validateMessage()
+bool SimpleMessage::validateMessage() const
 {
-
   if ( StandardMsgTypes::INVALID == this->getMessageType())
   {
     LOG_WARN("Invalid message type: %u", this->getMessageType());
@@ -162,7 +157,5 @@ bool SimpleMessage::validateMessage()
 }
 
 
-
-	
 } // namespace simple_message
 } // namespace industrial

@@ -57,8 +57,7 @@ PingMessage::~PingMessage(void)
 
 }
 
-
-bool PingMessage::init(SimpleMessage & msg)
+bool PingMessage::init(const SimpleMessage& msg)
 {
   bool rtn = false;
 
@@ -75,7 +74,6 @@ bool PingMessage::init(SimpleMessage & msg)
 
   return rtn;
 }
-
 
 void PingMessage::init()
 {

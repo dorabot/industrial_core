@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -63,7 +63,7 @@ void JointTrajPt::init()
   this->duration_ = 0.0;
 }
 
-void JointTrajPt::init(shared_int sequence, JointData & position, shared_real velocity, shared_real duration)
+void JointTrajPt::init(shared_int sequence, const JointData& position, shared_real velocity, shared_real duration)
 {
   this->setJointPosition(position);
   this->setSequence(sequence);
@@ -71,7 +71,7 @@ void JointTrajPt::init(shared_int sequence, JointData & position, shared_real ve
   this->setDuration(duration);
 }
 
-void JointTrajPt::copyFrom(JointTrajPt &src)
+void JointTrajPt::copyFrom(const JointTrajPt& src)
 {
   this->setSequence(src.getSequence());
   src.getJointPosition(this->joint_position_);
@@ -79,14 +79,13 @@ void JointTrajPt::copyFrom(JointTrajPt &src)
   this->setDuration(src.getDuration());
 }
 
-bool JointTrajPt::operator==(JointTrajPt &rhs)
+bool JointTrajPt::operator==(const JointTrajPt& rhs) const
 {
   return this->joint_position_ == rhs.joint_position_ && this->sequence_ == rhs.sequence_
       && this->velocity_ == rhs.velocity_ && this->duration_ == rhs.duration_;
-
 }
 
-bool JointTrajPt::load(industrial::byte_array::ByteArray *buffer)
+bool JointTrajPt::load(industrial::byte_array::ByteArray *buffer) const
 {
   bool rtn = false;
 

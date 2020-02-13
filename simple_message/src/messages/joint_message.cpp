@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Southwest Research Institute
@@ -62,7 +62,7 @@ JointMessage::~JointMessage(void)
 
 }
 
-bool JointMessage::init(industrial::simple_message::SimpleMessage & msg)
+bool JointMessage::init(const industrial::simple_message::SimpleMessage& msg)
 {
   bool rtn = false;
   ByteArray data = msg.getData();
@@ -93,7 +93,7 @@ void JointMessage::setSequence(shared_int sequence)
   this->sequence_ = sequence;
 }
 
-void JointMessage::init(shared_int seq, JointData& joints)
+void JointMessage::init(shared_int seq, const JointData& joints)
 {
   this->setSequence(seq);
   this->joints_.copyFrom(joints);
@@ -105,7 +105,7 @@ void JointMessage::init()
   this->joints_.init();
 }
 
-bool JointMessage::load(ByteArray *buffer)
+bool JointMessage::load(ByteArray *buffer) const
 {
   bool rtn = false;
   LOG_COMM("Executing joint message load");
@@ -158,4 +158,3 @@ bool JointMessage::unload(ByteArray *buffer)
 
 }
 }
-

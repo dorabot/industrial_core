@@ -32,6 +32,8 @@
 #ifndef MESSAGE_MANAGER_H
 #define MESSAGE_MANAGER_H
 
+#include "config.h"
+
 #ifndef FLATHEADERS
 #include "simple_message/smpl_msg_connection.h"
 #include "simple_message/message_handler.h"
@@ -138,7 +140,7 @@ public:
    *
    * \return connection reference
    */
-  unsigned int getNumHandlers()
+  unsigned int getNumHandlers() const
   {
     return this->num_handlers_;
   }
@@ -148,11 +150,10 @@ public:
    *
    * \return connection reference
    */
-  unsigned int getMaxNumHandlers()
+  unsigned int getMaxNumHandlers() const
   {
     return this->MAX_NUM_HANDLERS;
   }
-
 
   /**
    * \brief Gets communications fault handler
@@ -173,7 +174,6 @@ public:
   {
     this->comms_hndlr_ = handler;
   }
-
 
 private:
 
@@ -243,6 +243,7 @@ private:
   {
     return this->def_comms_hndlr_;
   }
+
   /**
    * \brief Gets ping handler
    *
@@ -252,7 +253,6 @@ private:
   {
     return this->ping_hndlr_;
   }
-  ;
 
   /**
    * \brief Sets connection manager
@@ -263,7 +263,6 @@ private:
   {
     this->connection_ = connection;
   }
-  ;
 
   /**
    * \brief Gets connection for manager
@@ -274,7 +273,6 @@ private:
   {
     return this->connection_;
   }
-  ;
 
   /**
    * \brief Sets message type that callback expects
@@ -285,7 +283,6 @@ private:
   {
     this->num_handlers_ = num_handlers;
   }
-  ;
 
 };
 

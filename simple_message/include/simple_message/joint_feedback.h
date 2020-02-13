@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2013, Southwest Research Institute
@@ -31,6 +31,8 @@
 
 #ifndef JOINT_FEEDBACK_H
 #define JOINT_FEEDBACK_H
+
+#include "config.h"
 
 #ifndef FLATHEADERS
 #include "simple_message/joint_data.h"
@@ -110,9 +112,9 @@ public:
   void init(industrial::shared_types::shared_int robot_id,
             industrial::shared_types::shared_int valid_fields,
             industrial::shared_types::shared_real time,
-            industrial::joint_data::JointData & positions,
-            industrial::joint_data::JointData & velocities,
-            industrial::joint_data::JointData & accelerations);
+            const industrial::joint_data::JointData& positions,
+            const industrial::joint_data::JointData& velocities,
+            const industrial::joint_data::JointData& accelerations);
 
   /**
    * \brief Sets robot_id.
@@ -131,7 +133,7 @@ public:
    *
    * @return robot_id value
    */
-  industrial::shared_types::shared_int getRobotID()
+  industrial::shared_types::shared_int getRobotID() const
   {
     return this->robot_id_;
   }
@@ -153,7 +155,7 @@ public:
    * \param time returned time value
    * \return true if this field contains valid data
    */
-  bool getTime(industrial::shared_types::shared_real & time)
+  bool getTime(industrial::shared_types::shared_real& time) const
   {
     time = this->time_;
     return is_valid(ValidFieldTypes::TIME);
@@ -173,7 +175,7 @@ public:
    *
    * \param positions new joint position data
    */
-  void setPositions(industrial::joint_data::JointData &positions)
+  void setPositions(const industrial::joint_data::JointData& positions)
   {
     this->positions_.copyFrom(positions);
     this->valid_fields_ |= ValidFieldTypes::POSITION;  // set the bit
@@ -185,7 +187,7 @@ public:
    * \param dest returned joint position
    * \return true if this field contains valid data
    */
-  bool getPositions(industrial::joint_data::JointData &dest)
+  bool getPositions(industrial::joint_data::JointData& dest) const
   {
     dest.copyFrom(this->positions_);
     return is_valid(ValidFieldTypes::POSITION);
@@ -205,7 +207,7 @@ public:
    *
    * \param velocities new joint velocity data
    */
-  void setVelocities(industrial::joint_data::JointData &velocities)
+  void setVelocities(const industrial::joint_data::JointData& velocities)
   {
     this->velocities_.copyFrom(velocities);
     this->valid_fields_ |= ValidFieldTypes::VELOCITY;  // set the bit
@@ -217,7 +219,7 @@ public:
    * \param dest returned joint velocity
    * \return true if this field contains valid data
    */
-  bool getVelocities(industrial::joint_data::JointData &dest)
+  bool getVelocities(industrial::joint_data::JointData& dest) const
   {
     dest.copyFrom(this->velocities_);
     return is_valid(ValidFieldTypes::VELOCITY);
@@ -231,12 +233,13 @@ public:
     this->velocities_.init();
     this->valid_fields_ &= ~ValidFieldTypes::VELOCITY;  // clear the bit
   }
+
   /**
    * \brief Sets joint acceleration data
    *
    * \param accelerations new joint acceleration data
    */
-  void setAccelerations(industrial::joint_data::JointData &accelerations)
+  void setAccelerations(const industrial::joint_data::JointData& accelerations)
   {
     this->accelerations_.copyFrom(accelerations);
     this->valid_fields_ |= ValidFieldTypes::ACCELERATION;  // set the bit
@@ -248,7 +251,7 @@ public:
    * \param dest returned joint acceleration
    * \return true if this field contains valid data
    */
-  bool getAccelerations(industrial::joint_data::JointData &dest)
+  bool getAccelerations(industrial::joint_data::JointData& dest) const
   {
     dest.copyFrom(this->accelerations_);
     return is_valid(ValidFieldTypes::ACCELERATION);
@@ -263,35 +266,34 @@ public:
     this->valid_fields_ &= ~ValidFieldTypes::ACCELERATION;  // clear the bit
   }
 
-
   /**
    * \brief Copies the passed in value
    *
    * \param src (value to copy)
    */
-  void copyFrom(JointFeedback &src);
+  void copyFrom(const JointFeedback& src);
 
   /**
    * \brief == operator implementation
    *
    * \return true if equal
    */
-  bool operator==(JointFeedback &rhs);
+  bool operator==(const JointFeedback& rhs) const;
 
   /**
    * \brief check the validity state for a given field
    * @param field field to check
    * @return true if specified field contains valid data
    */
-  bool is_valid(ValidFieldType field)
+  bool is_valid(ValidFieldType field) const
   {
     return valid_fields_ & field;
   }
 
   // Overrides - SimpleSerialize
-  bool load(industrial::byte_array::ByteArray *buffer);
+  bool load(industrial::byte_array::ByteArray *buffer) const;
   bool unload(industrial::byte_array::ByteArray *buffer);
-  unsigned int byteLength()
+  unsigned int byteLength() const
   {
     return 2*sizeof(industrial::shared_types::shared_int) + sizeof(industrial::shared_types::shared_real)
         + 3*this->positions_.byteLength();

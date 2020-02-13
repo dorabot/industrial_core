@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Yaskawa America, Inc.
@@ -71,14 +71,12 @@ namespace industrial
             rtn = false;
             logSocketError("Socket sendBytes failed", rc, errno);
           }
-
         }
         else
         {
           LOG_ERROR("Buffer size: %u, is greater than max socket size: %u", buffer.getBufferSize(), this->MAX_BUFFER_SIZE);
           rtn = false;
         }
-
       }
       else
       {
@@ -131,14 +129,14 @@ namespace industrial
               if (this->SOCKET_FAIL == rc)
               {
                 this->logSocketError("Socket received failed", rc, errno);
-		        remainBytes = 0;
+                remainBytes = 0;
                 rtn = false;
                 break;
               }
               else if (0 == rc)
               {
                 LOG_WARN("Recieved zero bytes: %u", rc);
-		        remainBytes = 0;
+                remainBytes = 0;
                 rtn = false;
                 break;
               }
@@ -185,4 +183,3 @@ namespace industrial
 
   }  //simple_socket
 }  //industrial
-
